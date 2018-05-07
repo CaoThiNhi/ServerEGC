@@ -1,8 +1,9 @@
+
 <?php
   require_once 'dbconnect.php';
   $upload_path = 'uploads/';
   // $upload_url = 'http://apho2017.hust.edu.vn/uploads/';
-  $upload_url = 'http://localhost/diagnose-report/uploads/';
+  $upload_url = 'http://localhost:8888/diagnose-report/uploads/';
 
   $response = array();
 
@@ -140,7 +141,7 @@
           move_uploaded_file($_FILES['images']['tmp_name'][$i],$file_path);
           // exec('./predict "$file_path"');
           // echo "/Applications/MAMP/htdocs/diagnose-report/predict '".$file_path."'";
-          $output = shell_exec("./predict '".$file_path."' 2>&1");
+          $output = exec("./predict '".$file_path."' 2>&1");
           $response['shell'][$i]=$output;
 
           $sql = "INSERT INTO images (`id`, `report_id`, `url`) VALUES (NULL, '$report_id', '$file_url');";

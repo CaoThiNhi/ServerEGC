@@ -10,15 +10,18 @@ fi
 FILE_PATH=$1
 FILE_NAME=$(basename -- "$FILE_PATH")
 EXTENSION="${FILE_NAME##*.}"
-FILE_NAME_WITHOUT_EXT="${FILE_NAME%%.*}"
+FILE_NAME_WITHOUT_EXT="A${FILE_NAME%%.*}"
 OUTPUT_DIR=$(dirname "${FILE_PATH}")
-# echo "FILE_PATH: ${FILE_PATH}"
+#echo "FILE_PATH: ${FILE_PATH}"
 # echo "FILE_NAME: ${FILE_NAME}"
 # echo "EXTENSION: ${EXTENSION}"
-# echo "FILE_NAME_WITHOUT_EXT: ${FILE_NAME_WITHOUT_EXT}"
+#echo "FILE_NAME_WITHOUT_EXT: ${FILE_NAME_WITHOUT_EXT}"
 # echo "OUTPUT_DIR: ${OUTPUT_DIR}"
 
-python img2csv.py ${FILE_PATH}
-wrsamp -i uploads/${FILE_NAME_WITHOUT_EXT}.csv -o uploads/${FILE_NAME_WITHOUT_EXT} -G 1000 -F 250 -z
-wfdb2mat -r uploads/${FILE_NAME_WITHOUT_EXT} > /dev/null
-python predict.py "${FILE_NAME_WITHOUT_EXT}m.mat"
+/usr/local/bin/python img2csv.py ${FILE_PATH}
+/usr/local/bin/wrsamp -i uploads/${FILE_NAME_WITHOUT_EXT}.csv -o uploads/${FILE_NAME_WITHOUT_EXT} -G 1000 -F 300 -z
+# mv uploads/${FILE_NAME_WITHOUT_EXT}.hea uploads/A${FILE_NAME_WITHOUT_EXT}.hea
+# mv uploads/${FILE_NAME_WITHOUT_EXT}.dat uploads/A${FILE_NAME_WITHOUT_EXT}.dat
+/usr/local/bin/wfdb2mat -r uploads/${FILE_NAME_WITHOUT_EXT} > /dev/null
+#source activate tensorflow
+/anaconda3/envs/tensorflow/bin/python predict.py "${FILE_NAME_WITHOUT_EXT}m.mat" 
