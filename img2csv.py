@@ -13,7 +13,7 @@ output_path = output_folder + "/" + output_filename + ".csv"
 img = cv2.imread(PATH)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-indices = np.where(img == [76]) # where pixel is pink (pink -> gray = 68)
+indices = np.where(img == [68]) # where pixel is pink (puple -> gray = 76)
 coordinates = np.array(list(zip(indices[1], indices[0])))  # -> coordinates[x, y]
 coordinates = coordinates[coordinates[:,0].argsort()] # sort and calculate mean value of identical items
 values_by_key = collections.defaultdict(list)
